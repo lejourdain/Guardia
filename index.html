@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Leandre Jourdain — Portfolio Cyber</title>
+  <meta name="description" content="Portfolio futuriste et interactif de Leandre Jourdain, étudiant en cybersécurité à Guardia Cybersecurity School." />
+  <meta property="og:title" content="Leandre Jourdain — Portfolio Cyber" />
+  <meta property="og:description" content="Portfolio futuriste et interactif — cybersécurité, projets, compétences, contact." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#00f0ff" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{ --bg:#070a12; --panel:#0b1220cc; --panel-strong:#0f1a30; --text:#e6f1ff; --muted:#9bb0c8; --primary:#00f0ff; --accent:#7a5cff; --glow:0 0 24px rgba(0,240,255,.35); }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{ margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif; color:var(--text);
+      background:radial-gradient(1200px 600px at 10% -10%,rgba(122,92,255,.2),transparent), radial-gradient(1200px 600px at 90% 10%,rgba(0,240,255,.18),transparent), var(--bg); overflow-x:hidden; }
+    /* Canvas background */
+    #bg-particles{ position:fixed; inset:0; z-index:-1; }
+    /* Scroll progress */
+    #scroll-progress{ position:fixed; inset:0 0 auto 0; height:3px; background:linear-gradient(90deg,#101a30,transparent); z-index:60 }
+    #scroll-progress span{ display:block; height:100%; width:0; background:linear-gradient(90deg,var(--primary),#7a5cff); box-shadow:0 0 12px rgba(0,240,255,.6) }
+    .site-header{ position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between; padding:14px 22px; backdrop-filter:blur(10px); background:linear-gradient(180deg,rgba(7,10,18,.85),rgba(7,10,18,.35) 60%,transparent); border-bottom:1px solid #0e1a2f; }
+    .brand{display:flex;align-items:center;gap:10px}
+    .logo-glow{width:12px;height:12px;border-radius:50%;background:var(--primary);box-shadow:var(--glow)}
+    .brand-text{font-family:Orbitron,Inter,system-ui,sans-serif;letter-spacing:.12em}
+    .nav{display:flex;gap:14px}
+    .nav a{color:var(--muted);text-decoration:none;font-weight:600;font-size:.95rem;position:relative}
+    .nav a.active{color:var(--text)}
+    .nav a.active::after{content:"";position:absolute;left:0;right:0;bottom:-8px;height:2px;background:linear-gradient(90deg,var(--primary),#7a5cff);border-radius:2px}
+    .actions .btn-ghost{border:1px solid #163054;background:transparent;color:var(--text);padding:8px 12px;border-radius:10px}
+    .hero{ position:relative; display:grid; grid-template-columns:1.1fr .9fr; gap:32px; align-items:center; padding:64px 22px 24px; min-height:70vh; }
+    .hero-content{ background:linear-gradient(180deg,rgba(17,28,52,.7),rgba(11,18,32,.7)); border:1px solid #183153; padding:28px; border-radius:18px; box-shadow:var(--glow) }
+    .title{margin:0 0 10px 0;font-size:clamp(28px,4vw,48px);line-height:1.1}
+    .greet{font-weight:300;color:var(--muted)}
+    .name{font-family:Orbitron,Inter,sans-serif;color:#d1e7ff;letter-spacing:.06em}
+    .subtitle{margin:6px 0 20px 0;color:var(--muted);min-height:28px}
+    .cta{display:flex;gap:12px;flex-wrap:wrap}
+    .btn-primary,.btn-secondary{cursor:pointer;border:none;border-radius:12px;font-weight:700}
+    .btn-primary{background:linear-gradient(90deg,var(--primary),#2ad8ff);color:#00252b;padding:12px 16px;box-shadow:0 8px 18px rgba(0,240,255,.22)}
+    .btn-secondary{background:#101a30;color:#e6f1ff;border:1px solid #1a355d;padding:12px 16px}
+    .quick-info{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
+    .chip{border:1px dashed #224a7d;color:#b7c9e6;background:#0a1427;padding:6px 10px;border-radius:999px;font-size:.85rem}
+    .hero-orbs{position:absolute;inset:0;pointer-events:none}
+    .orb{position:absolute;border-radius:50%;filter:blur(18px);opacity:.6;animation:float 12s ease-in-out infinite}
+    .orb-1{width:160px;height:160px;background:radial-gradient(circle,#7a5cff,transparent 60%);top:8%;right:10%}
+    .orb-2{width:120px;height:120px;background:radial-gradient(circle,#00f0ff,transparent 60%);bottom:12%;left:8%;animation-delay:2s}
+    .orb-3{width:90px;height:90px;background:radial-gradient(circle,#2ad8ff,transparent 60%);top:30%;left:45%;animation-delay:4s}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+    .panel{margin:28px 22px;padding:22px;border:1px solid #183153;border-radius:18px;background:linear-gradient(180deg,rgba(11,18,32,.9),rgba(10,16,28,.8));box-shadow:var(--glow)}
+    .section-title{margin:0 0 16px 0;font-family:Orbitron,Inter,sans-serif;letter-spacing:.08em}
+    .about p{color:#c7d6ee}
+    .highlights{display:grid;gap:6px;padding-left:18px;color:#9bb0c8}
+    .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .skill-card{padding:18px;border:1px solid #183153;border-radius:14px;background:#0c1426;transform-style:preserve-3d}
+    .skill-card h3{margin:0 0 12px 0}
+    .bar{height:34px;background:#0b1324;border:1px solid #1a355d;border-radius:999px;overflow:hidden;margin:10px 0}
+    .bar span{display:block;height:100%;width:var(--val);background:linear-gradient(90deg,#7a5cff,#00f0ff);color:#07111e;padding-left:12px;line-height:32px;font-weight:800;letter-spacing:.02em}
+    .tags{display:flex;gap:8px;flex-wrap:wrap}
+    .tags span{background:#0b1428;border:1px solid #1a355d;padding:6px 10px;border-radius:999px;color:#cfe2ff}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{padding:18px;border:1px solid #183153;border-radius:14px;background:linear-gradient(180deg,#0d162a,#0a1323);transform-style:preserve-3d}
+    .card h3{margin:0 0 8px 0}
+    .meta{display:flex;gap:8px;margin-top:10px}
+    .pill{background:#0a1427;border:1px solid #213f68;color:#cfe2ff;padding:4px 10px;border-radius:999px;font-size:.85rem}
+    .education .timeline{position:relative;margin-left:6px;padding-left:18px}
+    .education .timeline::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:#17325a}
+    .tl-item{position:relative;margin:16px 0;padding-left:12px}
+    .tl-item .dot{position:absolute;left:-6px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--primary);box-shadow:var(--glow)}
+    .tl-item .content h3{margin:0}
+    .tl-item .time{color:#9bb0c8;font-size:.9rem}
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .contact-card{padding:18px;border:1px solid #183153;border-radius:14px;background:#0c1426}
+    .linklike{background:none;border:none;color:#86dfff;text-decoration:underline;cursor:pointer;padding:0;font:inherit}
+    .hint{color:#8fb6d8;font-size:.9rem}
+    .form .field{display:grid;gap:6px;margin-bottom:10px}
+    .form input,.form textarea{background:#0a1427;border:1px solid #1a355d;color:#e6f1ff;border-radius:10px;padding:10px}
+    .form-note{color:#8fb6d8;font-size:.9rem;margin-top:8px}
+    .site-footer{margin:40px 0 24px 0;text-align:center;color:#8fb6d8}
+    /* Reveal on scroll */
+    .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease}
+    .reveal.in{opacity:1; transform:none}
+    /* Back to top */
+    #backToTop{ position:fixed; right:16px; bottom:16px; width:44px; height:44px; border-radius:50%; border:1px solid #1a355d; background:#0c1426; color:#e6f1ff; box-shadow:var(--glow); cursor:pointer; display:grid; place-items:center; opacity:0; pointer-events:none; transition:opacity .25s ease, transform .25s ease; transform:translateY(10px); z-index:60 }
+    #backToTop.show{ opacity:1; pointer-events:auto; transform:none }
+    /* Responsive */
+    @media (max-width: 980px){ .hero{grid-template-columns:1fr} .cards{grid-template-columns:1fr 1fr} .skills-grid{grid-template-columns:1fr} .contact-grid{grid-template-columns:1fr} }
+    @media (max-width: 600px){ .cards{grid-template-columns:1fr} }
+    @media (prefers-reduced-motion: reduce){ *{animation:none!important; transition:none!important} }
+  </style>
+</head>
+<body>
+  <div id="scroll-progress" aria-hidden="true"><span></span></div>
+  <canvas id="bg-particles" aria-hidden="true"></canvas>
+
+  <header class="site-header">
+    <div class="brand">
+      <span class="logo-glow"></span>
+      <span class="brand-text">LJ</span>
+    </div>
+    <nav class="nav">
+      <a href="#about">À propos</a>
+      <a href="#skills">Compétences</a>
+      <a href="#projects">Projets</a>
+      <a href="#education">Parcours</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="actions">
+      <button id="themeToggle" aria-label="Basculer le thème" class="btn-ghost">Mode</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-content reveal" data-tilt>
+        <h1 class="title"><span class="greet">Bonjour, je suis</span><br><span class="name">Leandre Jourdain</span></h1>
+        <p class="subtitle"><span id="typewriter"></span></p>
+        <div class="cta">
+          <a class="btn-primary" href="#contact">Me contacter</a>
+          <a class="btn-secondary" href="#projects">Voir mes projets</a>
+        </div>
+        <div class="quick-info">
+          <div class="chip">Étudiant en cyber — Guardia Cybersecurity School</div>
+          <div class="chip">BAC STI2D</div>
+          <div class="chip">Curieux • Rigoureux • Orienté solution</div>
+        </div>
+      </div>
+      <div class="hero-orbs" aria-hidden="true">
+        <span class="orb orb-1"></span>
+        <span class="orb orb-2"></span>
+        <span class="orb orb-3"></span>
+      </div>
+    </section>
+
+    <section class="panel about reveal" id="about">
+      <h2 class="section-title">À propos</h2>
+      <p>
+        Étudiant en cybersécurité à <strong>Guardia Cybersecurity School</strong>, passionné par la protection des systèmes, l'analyse de vulnérabilités et la sécurité applicative. 
+        J'aime apprendre vite, expérimenter et transformer des idées en solutions concrètes.
+      </p>
+      <ul class="highlights">
+        <li>Investigation • Pentest débutant • Sécurité réseau</li>
+        <li>Automatisation avec scripts • Bonne culture tech</li>
+        <li>Travail en équipe • Présentations claires</li>
+      </ul>
+    </section>
+
+    <section class="panel skills reveal" id="skills">
+      <h2 class="section-title">Compétences</h2>
+      <div class="skills-grid">
+        <div class="skill-card reveal" data-tilt>
+          <h3>Tech</h3>
+          <div class="bar"><span style="--val: 80%">Réseau</span></div>
+          <div class="bar"><span style="--val: 70%">Linux</span></div>
+          <div class="bar"><span style="--val: 65%">Python</span></div>
+          <div class="bar"><span style="--val: 55%">Web Sec</span></div>
+        </div>
+        <div class="skill-card reveal" data-tilt>
+          <h3>Outils</h3>
+          <div class="tags">
+            <span>Nmap</span><span>Wireshark</span><span>Burp</span><span>Git</span><span>Bash</span>
+          </div>
+        </div>
+        <div class="skill-card reveal" data-tilt>
+          <h3>Soft Skills</h3>
+          <div class="tags">
+            <span>Esprit d'analyse</span><span>Autonomie</span><span>Communication</span><span>Veille</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel projects reveal" id="projects">
+      <h2 class="section-title">Projets</h2>
+      <div class="cards">
+        <article class="card reveal" data-tilt>
+          <h3>Scan & Cartographie réseau</h3>
+          <p>Automatisation d'un scan de ports et génération de rapport visuel.</p>
+          <div class="meta">
+            <span class="pill">Python</span><span class="pill">Nmap</span>
+          </div>
+        </article>
+        <article class="card reveal" data-tilt>
+          <h3>CTF & Vuln Labs</h3>
+          <p>Résolution de challenges d'intro pentest et documentation des méthodes.</p>
+          <div class="meta">
+            <span class="pill">Burp</span><span class="pill">Linux</span>
+          </div>
+        </article>
+        <article class="card reveal" data-tilt>
+          <h3>Monitoring de logs</h3>
+          <p>Script d'alerte simple pour détecter des événements suspects dans des logs.</p>
+          <div class="meta">
+            <span class="pill">Bash</span><span class="pill">Regex</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel education reveal" id="education">
+      <h2 class="section-title">Parcours</h2>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="dot"></div>
+          <div class="content">
+            <h3>Étudiant en cybersécurité</h3>
+            <p>Guardia Cybersecurity School</p>
+            <span class="time">Actuel</span>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="dot"></div>
+          <div class="content">
+            <h3>BAC STI2D</h3>
+            <span class="time">Obtenu</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel contact reveal" id="contact">
+      <h2 class="section-title">Contact</h2>
+      <div class="contact-grid">
+        <div class="contact-card reveal" data-tilt>
+          <h3>Coordonnées</h3>
+          <ul>
+            <li><strong>Nom</strong> : Leandre Jourdain</li>
+            <li><strong>Email</strong> : <button class="linklike" data-copy="ljourdain guardiaschool.fr">ljourdain guardiaschool.fr</button></li>
+            <li><strong>Téléphone</strong> : <button class="linklike" data-copy="0659202188">0659202188</button></li>
+            <li><strong>Localisation</strong> : France</li>
+          </ul>
+          <p class="hint">Clique pour copier.</p>
+        </div>
+        <form class="contact-card form reveal" onsubmit="return false;" data-tilt>
+          <h3>Me laisser un message</h3>
+          <div class="field">
+            <label>Nom</label>
+            <input type="text" placeholder="Votre nom" required>
+          </div>
+          <div class="field">
+            <label>Email</label>
+            <input type="email" placeholder="votre@email" required>
+          </div>
+          <div class="field">
+            <label>Message</label>
+            <textarea rows="4" placeholder="Bonjour Leandre..." required></textarea>
+          </div>
+          <button class="btn-primary" id="fakeSend">Envoyer</button>
+          <p class="form-note">Cette démo n'envoie pas d'email, mais copie automatiquement le message pour vous.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> Leandre Jourdain — Étudiant en cybersécurité</p>
+  </footer>
+  <button id="backToTop" aria-label="Revenir en haut">↑</button>
+  <script>
+  // Init year
+  const yearEl = document.getElementById('year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+  // Typewriter
+  const typeEl = document.getElementById('typewriter');
+  const phrases = ['Étudiant en cybersécurité','Passionné de sécurité réseau','Curieux, méthodique et motivé'];
+  let idx = 0, char = 0, deleting = false;
+  function typeLoop(){
+    if(!typeEl) return;
+    const current = phrases[idx];
+    typeEl.textContent = current.slice(0, char) + (Math.random()>0.6?'▌':'');
+    if(!deleting){ if(char < current.length) char++; else if(Math.random()>0.96) deleting = true; }
+    else { if(char > 0) char--; else { deleting = false; idx=(idx+1)%phrases.length; } }
+    setTimeout(typeLoop, (deleting?45:85) + Math.random()*90);
+  }
+  requestAnimationFrame(typeLoop);
+  // Particle background
+  const canvas = document.getElementById('bg-particles');
+  if (canvas) {
+    const ctx = canvas.getContext('2d'); let W,H; let particles=[]; const COUNT=88;
+    function resize(){ W = canvas.width = innerWidth; H = canvas.height = innerHeight; }
+    addEventListener('resize', resize); resize();
+    function make(){ return { x:Math.random()*W, y:Math.random()*H, vx:(Math.random()-0.5)*0.6, vy:(Math.random()-0.5)*0.6, r:Math.random()*2+0.6 } }
+    particles = Array.from({length:COUNT}, make);
+    (function step(){
+      ctx.clearRect(0,0,W,H);
+      ctx.fillStyle='rgba(0,240,255,0.9)'; ctx.strokeStyle='rgba(122,92,255,0.35)';
+      for(let i=0;i<particles.length;i++){
+        const p=particles[i]; p.x+=p.vx; p.y+=p.vy; if(p.x<0||p.x>W) p.vx*=-1; if(p.y<0||p.y>H) p.vy*=-1;
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+        for(let j=i+1;j<particles.length;j++){
+          const q=particles[j]; const dx=p.x-q.x, dy=p.y-q.y; const d=Math.hypot(dx,dy);
+          if(d<120){ ctx.globalAlpha = 1 - d/120; ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y); ctx.stroke(); ctx.globalAlpha=1; }
+        }
+      }
+      requestAnimationFrame(step);
+    })();
+  }
+  // Smooth scroll
+  for (const a of document.querySelectorAll('a[href^="#"]')){
+    a.addEventListener('click', function(e){
+      const href=a.getAttribute('href');
+      if(href && href.length>1){
+        e.preventDefault();
+        var target = document.querySelector(href);
+        if (target && target.scrollIntoView){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
+      }
+    });
+  }
+  // Copy contact
+  for (const btn of document.querySelectorAll('[data-copy]')){
+    btn.addEventListener('click', ()=>{ const text=btn.getAttribute('data-copy'); navigator.clipboard.writeText(text).then(()=>{ btn.textContent='Copié !'; setTimeout(()=> btn.textContent=text, 1200); }); });
+  }
+  const sendBtn=document.getElementById('fakeSend');
+  if (sendBtn){ sendBtn.addEventListener('click', function(){
+    var form = sendBtn.closest('form');
+    var fields = form ? form.querySelectorAll('input,textarea') : [];
+    var arr = [];
+    for (var i=0;i<fields.length;i++){
+      var el = fields[i];
+      var lab = el.previousElementSibling;
+      var name = lab ? lab.textContent : 'Champ';
+      arr.push(name + ': ' + el.value);
+    }
+    var values = arr.join('\n');
+    if (navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(values || 'Message vide'); }
+    sendBtn.textContent='Message copié'; setTimeout(function(){ sendBtn.textContent='Envoyer'; }, 1500);
+  }); }
+  const toggle=document.getElementById('themeToggle'); const root=document.documentElement;
+  const LIGHT={ '--bg':'#f4f7ff','--panel':'#ffffffd0','--panel-strong':'#e9efff','--text':'#0a0c12','--muted':'#3b4b65','--glow':'0 0 0 rgba(0,0,0,0)' };
+  function setVars(vars){ for(const k in vars){ root.style.setProperty(k, vars[k]); } }
+  if (toggle){ let dark=true; toggle.addEventListener('click', ()=>{ dark=!dark; if(dark){ setVars({'--bg':'#070a12','--panel':'#0b1220cc','--panel-strong':'#0f1a30','--text':'#e6f1ff','--muted':'#9bb0c8','--glow':'0 0 24px rgba(0,240,255,.35)'}); } else { setVars(LIGHT); } }); }
+  if ('IntersectionObserver' in window){
+    const observer = new IntersectionObserver(function(entries){ entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); observer.unobserve(e.target); } }); }, {threshold:0.12, rootMargin:'0px 0px -10% 0px'});
+    document.querySelectorAll('.reveal').forEach(function(el){ observer.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+  }
+  // Simple tilt for [data-tilt]
+  const reduce = (window.matchMedia ? matchMedia('(prefers-reduced-motion: reduce)').matches : false);
+  document.querySelectorAll('[data-tilt]').forEach(card=>{
+    const max=10; let rx=0, ry=0; let raf;
+    function onMove(e){ if(reduce) return; const r=card.getBoundingClientRect(); const px=(e.clientX - r.left)/r.width; const py=(e.clientY - r.top)/r.height; ry=(px-0.5)*max; rx=-(py-0.5)*max; if(!raf){ raf=requestAnimationFrame(()=>{ card.style.transform=`perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg)`; raf=null; }); } }
+    function reset(){ card.style.transform='perspective(800px) rotateX(0) rotateY(0)'; }
+    card.addEventListener('pointermove', onMove);
+    card.addEventListener('pointerleave', reset);
+  });
+  // Scroll progress + back-to-top + nav active
+  const progress = document.querySelector('#scroll-progress span');
+  const backTop = document.getElementById('backToTop');
+  const navLinks = Array.from(document.querySelectorAll('.nav a'));
+  const sections = navLinks.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  function onScroll(){
+    const h = document.documentElement; const scrolled = (h.scrollTop)/(h.scrollHeight - h.clientHeight); if(progress) progress.style.width = (scrolled*100)+'%';
+    if (backTop){ if (h.scrollTop > 400) backTop.classList.add('show'); else backTop.classList.remove('show'); }
+    let activeIndex = 0; const y = scrollY + innerHeight*0.3;
+    for (let i=0;i<sections.length;i++){ const s=sections[i]; if (s && s.offsetTop <= y) activeIndex = i; }
+    navLinks.forEach((a,i)=>{ if(i===activeIndex) a.classList.add('active'); else a.classList.remove('active'); });
+  }
+  addEventListener('scroll', onScroll, {passive:true}); onScroll();
+  if (backTop){ backTop.addEventListener('click', ()=> scrollTo({top:0, behavior:'smooth'})); }
+  </script>
+</body>
+</html>
